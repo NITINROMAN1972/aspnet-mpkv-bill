@@ -34,6 +34,15 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
             ModeOfPayment_Bind_Dropdown();
             ItemCategory_Bind_Dropdown();
             UOM_Bind_Dropdown();
+/*
+               BinUniversityRegion_Bind_Dropdown();
+            AccountingRule_Bind_Dropdown();
+            SchemeCategory_Bind_Dropdown();
+            Components_Bind_Dropdown();
+            AccountHeadGroupName_Bind_Dropdown();
+            ModeOfPayment_Bind_Dropdown();
+            ItemCategory_Bind_Dropdown();
+            UOM_Bind_Dropdown();*/
         }
     }
 
