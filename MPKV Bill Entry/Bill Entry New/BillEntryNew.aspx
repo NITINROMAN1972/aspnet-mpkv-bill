@@ -605,7 +605,26 @@
         </div>
         <!-- Below Panel UI Ends -->
 
+====New=====
+               <!-- Submit Button -->
+                <div class="">
+                    <div class="row mt-5 mb-2">
+                        <div class="col-md-6 text-start">
+                            <asp:Button ID="btnBack" runat="server" Text="Back" OnClick="btnBack_Click" CssClass="btn btn-custom text-white shadow mb-5" />
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <asp:Button ID="btnSubmit" Enabled="true" runat="server" Text="Submit" ValidationGroup="finalSubmit" OnClick="btnSubmit_Click" CssClass="btn btn-custom text-white shadow mb-5" />
+                        </div>
+                    </div>
+                </div>
 
+
+            </div>
+        </div>
+        <!-- Below Panel UI Ends -->
+
+
+====New=====
 
     </form>
 </body>
