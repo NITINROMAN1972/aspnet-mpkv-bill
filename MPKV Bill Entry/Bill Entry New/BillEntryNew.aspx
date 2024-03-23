@@ -52,7 +52,7 @@
 
 
         <!-- Heading -->
-        <div class="col-md-12 mx-auto fw-normal fs-3 fw-medium ps-0 pb-2 text-body-secondary mt-1 mb-1">
+        <div class="col-md-12 mx-auto fw-normal fs-3 fw-medium ps-0 pb-2 text-dark-emphasis mt-1 mb-1">
             <asp:Literal Text="Challan Entry" runat="server"></asp:Literal>
         </div>
 
@@ -65,7 +65,7 @@
                     <asp:Literal Text="Challan Details" runat="server"></asp:Literal>
                 </div>
 
-                <!-- 1st row -->
+                <!-- 1st row Starts -->
                 <div class="row mb-2">
 
                     <!-- Challan Date -->
@@ -102,8 +102,10 @@
                     </div>
 
                 </div>
+                <!-- 1st row Ends -->
 
-                <!-- 2nd row -->
+
+                <!-- 2nd row Starts -->
                 <div class="row mb-2">
 
                     <!-- University Region -->
@@ -144,8 +146,10 @@
                     </div>
 
                 </div>
+                <!-- 2nd row Ends -->
 
-                <!-- 3rd row -->
+
+                <!-- 3rd row Starts -->
                 <div class="row mb-2">
 
                     <!-- Scheme Category -->
@@ -186,8 +190,10 @@
                     </div>
 
                 </div>
+                <!-- 3rd row Ends -->
 
-                <!-- 4th row -->
+
+                <!-- 4th row Starts -->
                 <div class="row mb-2">
 
                     <!-- Acc Head Group Name -->
@@ -232,8 +238,10 @@
                     </div>
 
                 </div>
+                <!-- 4th row Ends -->
 
-                <!-- 5th row -->
+
+                <!-- 5th row Starts -->
                 <div class="row mb-2">
 
                     <!-- Challan Amount -->
@@ -247,33 +255,19 @@
                         <asp:TextBox runat="server" ID="ChalanAmt" type="number" steps="0.01" CssClass="form-control border border-secondary-subtle bg-light rounded-1 fs-6 fw-light py-1"></asp:TextBox>
                     </div>
 
-                    <!-- Transaction Ref No -->
-                    <div class="col-md-4 align-self-end">
+                    <!-- Customer Name -->
+                    <div class="col-md-8 align-self-end">
                         <div class="mb-1 text-body-tertiary fw-semibold fs-6">
-                            <asp:Literal ID="Literal14" Text="" runat="server">Transaction Reference Number<em style="color: red">*</em></asp:Literal>
+                            <asp:Literal ID="Literal14" Text="" runat="server">Customer Name</asp:Literal>
                             <div>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="TransacRefNo" ValidationGroup="finalSubmit" CssClass="invalid-feedback" InitialValue="" runat="server" ErrorMessage="(enter transaction ref no)" SetFocusOnError="True" Display="Dynamic" ToolTip="Required"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="CustomerName" ValidationGroup="finalSubmit" CssClass="invalid-feedback" InitialValue="" runat="server" ErrorMessage="(enter customer name)" SetFocusOnError="True" Display="Dynamic" ToolTip="Required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
-                        <asp:TextBox runat="server" ID="TransacRefNo" type="text" CssClass="form-control border border-secondary-subtle bg-light rounded-1 fs-6 fw-light py-1"></asp:TextBox>
-                    </div>
-
-                    <!-- Mode Of Payment -->
-                    <div class="col-md-4 align-self-end">
-                        <div class="mb-1 text-body-tertiary fw-semibold fs-6">
-                            <asp:Literal ID="Literal15" Text="" runat="server">Mode Of Payment<em style="color: red">*</em></asp:Literal>
-                            <div>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="ModeOfPayment" ValidationGroup="finalSubmit" CssClass="invalid-feedback" InitialValue="0" runat="server" ErrorMessage="(select mode of payment)" SetFocusOnError="True" Display="Dynamic" ToolTip="Required"></asp:RequiredFieldValidator>
-                            </div>
-                        </div>
-                        <asp:DropDownList ID="ModeOfPayment" AutoPostBack="false" runat="server" class="form-control is-invalid" CssClass="">
-                            <asp:ListItem Text="Cash" Value="cash"></asp:ListItem>
-                            <asp:ListItem Text="DD" Value="DemandDraft"></asp:ListItem>
-                            <asp:ListItem Text="Online Payment" Value="payOnline"></asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:TextBox runat="server" ID="CustomerName" type="text" CssClass="form-control border border-secondary-subtle bg-light rounded-1 fs-6 fw-light py-1"></asp:TextBox>
                     </div>
 
                 </div>
+                <!-- 5th row Ends -->
 
 
             </div>

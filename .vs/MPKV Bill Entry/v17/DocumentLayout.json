@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{31A3E79F-6B54-4B49-983C-06A625DBF5C5}|C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry|c:\\users\\nitin\\downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\mpkv bill entry\\bill entry new\\billentrynew.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31A3E79F-6B54-4B49-983C-06A625DBF5C5}|C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry|solutionrelative:mpkv bill entry\\bill entry new\\billentrynew.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31A3E79F-6B54-4B49-983C-06A625DBF5C5}|C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry|c:\\users\\nitin\\downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\mpkv bill entry\\bill entry new\\billentrynew.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{31A3E79F-6B54-4B49-983C-06A625DBF5C5}|C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry|solutionrelative:mpkv bill entry\\bill entry new\\billentrynew.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31A3E79F-6B54-4B49-983C-06A625DBF5C5}|C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry|c:\\users\\nitin\\downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\mpkv bill entry\\bill entry new\\billentry.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{31A3E79F-6B54-4B49-983C-06A625DBF5C5}|C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry|solutionrelative:mpkv bill entry\\bill entry new\\billentry.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31A3E79F-6B54-4B49-983C-06A625DBF5C5}|C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry|c:\\users\\nitin\\downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\mpkv bill entry\\bill entry new\\billentry.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{31A3E79F-6B54-4B49-983C-06A625DBF5C5}|C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry|solutionrelative:mpkv bill entry\\bill entry new\\billentry.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "billentry.css",
+              "DocumentMoniker": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry\\Bill Entry New\\billentry.css",
+              "RelativeDocumentMoniker": "MPKV Bill Entry\\Bill Entry New\\billentry.css",
+              "ToolTip": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry\\Bill Entry New\\billentry.css",
+              "RelativeToolTip": "MPKV Bill Entry\\Bill Entry New\\billentry.css",
+              "ViewState": "AQIAABIAAAAAAAAAAAAQwDkAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-03-15T10:15:53.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "billentry.js",
+              "DocumentMoniker": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry\\Bill Entry New\\billentry.js",
+              "RelativeDocumentMoniker": "MPKV Bill Entry\\Bill Entry New\\billentry.js",
+              "ToolTip": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry\\Bill Entry New\\billentry.js",
+              "RelativeToolTip": "MPKV Bill Entry\\Bill Entry New\\billentry.js",
+              "ViewState": "AQIAAL4AAAAAAAAAAAAkwMcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-03-15T10:13:57.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BillEntryNew.aspx",
+              "DocumentMoniker": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry\\Bill Entry New\\BillEntryNew.aspx",
+              "RelativeDocumentMoniker": "MPKV Bill Entry\\Bill Entry New\\BillEntryNew.aspx",
+              "ToolTip": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry\\Bill Entry New\\BillEntryNew.aspx",
+              "RelativeToolTip": "MPKV Bill Entry\\Bill Entry New\\BillEntryNew.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-03-15T09:52:07.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BillEntryNew.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry\\Bill Entry New\\BillEntryNew.aspx.cs",
+              "RelativeDocumentMoniker": "MPKV Bill Entry\\Bill Entry New\\BillEntryNew.aspx.cs",
+              "ToolTip": "C:\\Users\\Nitin\\Downloads\\aspnet-mpkv-bill\\aspnet-mpkv-bill\\MPKV Bill Entry\\Bill Entry New\\BillEntryNew.aspx.cs",
+              "RelativeToolTip": "MPKV Bill Entry\\Bill Entry New\\BillEntryNew.aspx.cs",
+              "ViewState": "AQIAAP4EAAAAAAAAAAAAAB4EAABhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-15T09:52:37.023Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

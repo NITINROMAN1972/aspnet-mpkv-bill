@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Threading.Tasks;
 using System.Web.Services.Description;
 using System.Xml.Linq;
+using System.Drawing;
 
 public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
 {
@@ -31,10 +32,11 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
             SchemeCategory_Bind_Dropdown();
             Components_Bind_Dropdown();
             AccountHeadGroupName_Bind_Dropdown();
-            ModeOfPayment_Bind_Dropdown();
             ItemCategory_Bind_Dropdown();
             UOM_Bind_Dropdown();
 
+            //Session["UserId"] = "10021"; // amit user
+            //Session["UserRole"] = "Tech"; // useer role
         }
     }
 
@@ -136,7 +138,6 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
 
             SqlDataAdapter ad = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
-            ad.Fill(dt);
             ad.Fill(dt);
             con.Close();
 
@@ -306,14 +307,9 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
         }
     }
 
-    private void ModeOfPayment_Bind_Dropdown()
-    {
-        using (SqlConnection con = new SqlConnection(connectionString))
-        {
-            ModeOfPayment.Items.Insert(0, new ListItem("------Select Mode Of Payment------", "0"));
-        }
-    }
 
+
+    // item dropdowns
     private void ItemCategory_Bind_Dropdown()
     {
         using (SqlConnection con = new SqlConnection(connectionString))
@@ -332,7 +328,7 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
             ItemCategory.DataTextField = "ItCatNm";
             ItemCategory.DataValueField = "ItemCatID";
             ItemCategory.DataBind();
-            ItemCategory.Items.Insert(0, new ListItem("------Select Category------", "0"));
+            ItemCategory.Items.Insert(0, new ListItem("Select Category", "0"));
         }
     }
 
@@ -355,7 +351,7 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
             Item.DataTextField = "AcAtmNm";
             Item.DataValueField = "ItemID";
             Item.DataBind();
-            Item.Items.Insert(0, new ListItem("------Select Item------", "0"));
+            Item.Items.Insert(0, new ListItem("Select Item", "0"));
         }
     }
 
@@ -377,7 +373,7 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
             UOM.DataTextField = "umName";
             UOM.DataValueField = "umCode";
             UOM.DataBind();
-            UOM.Items.Insert(0, new ListItem("------Select UOM------", "0"));
+            UOM.Items.Insert(0, new ListItem("Select UOM", "0"));
         }
     }
 
@@ -460,7 +456,7 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
         {
             // clearing the items in the dropdown
             Item.Items.Clear();
-            Item.Items.Insert(0, new ListItem("------Select Item------", "0"));
+            Item.Items.Insert(0, new ListItem("Select Item", "0"));
         }
     }
 
@@ -537,12 +533,41 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
         //return Convert.ToInt32(nextRefID);
     }
 
+    private string GetNewTaxRefNo(SqlConnection con, SqlTransaction transaction)
+    {
+        string nextRefNo = "1000001";
+
+        string sql = "SELECT ISNULL(MAX(CAST(RefNO AS INT)), 1000000) + 1 AS NextRefNo FROM BillTaxHead722";
+        SqlCommand cmd = new SqlCommand(sql, con, transaction);
+
+        SqlDataAdapter ad = new SqlDataAdapter(cmd);
+        DataTable dt = new DataTable();
+        ad.Fill(dt);
+
+        if (dt.Rows.Count > 0) nextRefNo = dt.Rows[0]["NextRefNo"].ToString();
+        return nextRefNo;
+    }
+
+    private string GetNewDocReferenceNo(SqlConnection con, SqlTransaction transaction)
+    {
+        string nextRefNo = "1000001";
+
+        string sql = "SELECT ISNULL(MAX(CAST(RefNo AS INT)), 1000000) + 1 AS NextRefNo FROM BillDocUpload722";
+        SqlCommand cmd = new SqlCommand(sql, con, transaction);
+
+        SqlDataAdapter ad = new SqlDataAdapter(cmd);
+        DataTable dt = new DataTable();
+        ad.Fill(dt);
+
+        if (dt.Rows.Count > 0) nextRefNo = dt.Rows[0]["NextRefNo"].ToString();
+        return nextRefNo;
+    }
+
 
 
 
 
     //=========================={ GridView RowDeleting }==========================
-
     protected void Grid_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         GridView gridView = (GridView)sender;
@@ -635,13 +660,6 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
                 txtBillAmount.Text = totalBillAmount.HasValue ? totalBillAmount.Value.ToString("N2") : "0.00";
 
                 Session["TotalBillAmount"] = totalBillAmount;
-
-                // clearing input fields
-                ItemCategory.SelectedIndex = 0;
-                Item.SelectedIndex = 0;
-                UOM.SelectedIndex = 0;
-                Price.Text = string.Empty;
-                Quantity.Text = string.Empty;
             }
         }
         else
@@ -744,15 +762,28 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
 
     private void FillTaxHead()
     {
-        // fetching acount head or taxes
-        DataTable accountHeadDT = getAccountHead();
-        Session["AccountHeadDT"] = accountHeadDT;
+        double price = Convert.ToDouble(Price.Text.ToString());
+        double qty = Convert.ToDouble(Quantity.Text.ToString());
 
-        // total bill amount
-        double totalBillAmount = Convert.ToDouble(txtBillAmount.Text);
+        if (price >= 0.00 && qty >= 0)
+        {
+            // fetching acount head or taxes
+            DataTable accountHeadDT = getAccountHead();
+            Session["AccountHeadDT"] = accountHeadDT;
 
-        // fill tax heads
-        autoFilltaxHeads(accountHeadDT, totalBillAmount);
+            // total bill amount
+            double totalBillAmount = Convert.ToDouble(txtBillAmount.Text);
+
+            // fill tax heads
+            autoFilltaxHeads(accountHeadDT, totalBillAmount);
+
+            // clearing input fields
+            ItemCategory.SelectedIndex = 0;
+            Item.SelectedIndex = 0;
+            UOM.SelectedIndex = 0;
+            Price.Text = string.Empty;
+            Quantity.Text = string.Empty;
+        }
     }
 
     private void autoFilltaxHeads(DataTable accountHeadDT, double bscAmnt)
@@ -987,7 +1018,7 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
     //----------============={ Submit Button Event }=============----------
     protected void btnBack_Click(object sender, EventArgs e)
     {
-        Response.Redirect("BillEntryNew.aspx");
+        Response.Redirect("BillEntry.aspx");
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -1011,15 +1042,17 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
                         InsertHeader(bills1RefNo, con, transaction);
 
                         // inserting details
-                        insertBillDetails(bills1RefNo, con, transaction);
+                        InsertBillDetails(bills1RefNo, con, transaction);
 
                         // inserting tax head
-
+                        InsertTaxation(bills1RefNo, con, transaction);
 
                         // inserting documents
-
+                        InsertBillDocuments(bills1RefNo, con, transaction);
 
                         transaction.Commit();
+
+                        getSweetAlertSuccessRedirectMandatory("Saved Successfully", $"The Challan with Reference No: {bills1RefNo} Saved Successfully!", "BillEntry.aspx");
                     }
                     catch (Exception ex)
                     {
@@ -1064,8 +1097,7 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
         string accountHeadName = AccHeadName.SelectedValue;
 
         double amount = Convert.ToDouble(ChalanAmt.Text);
-        string transactionRefNo = TransacRefNo.Text.ToString();
-        string modeOfPayment = ModeOfPayment.SelectedValue;
+        string customerName = CustomerName.Text.ToString();
 
 
         double totalBillAmount = Convert.ToDouble(txtBillAmount.Text);
@@ -1085,13 +1117,14 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
             netBillAmount = totalBillAmount; // net amount == total bill amount
         }
 
+        string userID = Session["UserId"].ToString();
 
         string sql = $@"INSERT INTO Bills1722 
                         (RefNo, vouDate, vouNo, RcptNo, vouUnit, CollName, AccRule, schCat, vouScheme, Component, 
-                        vouAcGroup, AcHSubGroup, vouAcHead, vouAmt, vouTxnRef, vouMOP, TotalChallanAmt, TaxApplied, TotalDeduct, TotalAdd, NetAmount) 
+                        vouAcGroup, AcHSubGroup, vouAcHead, vouAmt, vouRemark, TotalChallanAmt, TaxApplied, TotalDeduct, TotalAdd, NetAmount, SaveBy) 
                         VALUES 
                         (@RefNo, @vouDate, @vouNo, @RcptNo, @vouUnit, @CollName, @AccRule, @schCat, @vouScheme, @Component, @vouAcGroup, @AcHSubGroup,
-                        @vouAcHead, @vouAmt, @vouTxnRef, @vouMOP, @TotalChallanAmt, @TaxApplied, @TotalDeduct, @TotalAdd, @NetAmount)";
+                        @vouAcHead, @vouAmt, @vouRemark, @TotalChallanAmt, @TaxApplied, @TotalDeduct, @TotalAdd, @NetAmount, @SaveBy)";
 
         SqlCommand cmd = new SqlCommand(sql, con, transaction);
         cmd.Parameters.AddWithValue("@RefNo", bills1RefNo);
@@ -1108,13 +1141,13 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@AcHSubGroup", accountHeadSubGroup);
         cmd.Parameters.AddWithValue("@vouAcHead", accountHeadName);
         cmd.Parameters.AddWithValue("@vouAmt", amount);
-        cmd.Parameters.AddWithValue("@vouTxnRef", transactionRefNo);
-        cmd.Parameters.AddWithValue("@vouMOP", modeOfPayment);
+        cmd.Parameters.AddWithValue("@vouRemark", customerName);
         cmd.Parameters.AddWithValue("@TotalChallanAmt", totalBillAmount);
         cmd.Parameters.AddWithValue("@TaxApplied", isTaxApplied);
         cmd.Parameters.AddWithValue("@TotalDeduct", totalDeduction);
         cmd.Parameters.AddWithValue("@TotalAdd", totalAddition);
         cmd.Parameters.AddWithValue("@NetAmount", netBillAmount);
+        cmd.Parameters.AddWithValue("@SaveBy", userID);
         //cmd.ExecuteNonQuery();
 
         SqlDataAdapter ad = new SqlDataAdapter(cmd);
@@ -1122,9 +1155,11 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
         ad.Fill(dt);
     }
 
-    private void insertBillDetails(string bills1RefNo, SqlConnection con, SqlTransaction transaction)
+    private void InsertBillDetails(string bills1RefNo, SqlConnection con, SqlTransaction transaction)
     {
         DataTable itemsDT = (DataTable)Session["ItemDetails"];
+
+        string userID = Session["UserId"].ToString();
 
         foreach (DataRow row in itemsDT.Rows)
         {
@@ -1138,9 +1173,10 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
             double price = Convert.ToDouble(row["Price"].ToString());
             double amount = Convert.ToDouble(row["Amount"].ToString());
 
-            string sql = $@"INSERT INTO Bills2722 (ItemRefNo, RefNo, AlcnNo, Item, UOM, Price, Qty, Amount) 
+            string sql = $@"INSERT INTO Bills2722 
+                            (ItemRefNo, RefNo, AlcnNo, Item, UOM, Price, Qty, Amount, SaveBy) 
                             VALUES 
-                            (@ItemRefNo, @RefNo, @AlcnNo, @Item, @UOM, @Price, @Qty, @Amount)";
+                            (@ItemRefNo, @RefNo, @AlcnNo, @Item, @UOM, @Price, @Qty, @Amount, @SaveBy)";
 
             SqlCommand cmd = new SqlCommand(sql, con, transaction);
             cmd.Parameters.AddWithValue("@ItemRefNo", newBills2RefNo);
@@ -1151,6 +1187,7 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
             cmd.Parameters.AddWithValue("@Price", price);
             cmd.Parameters.AddWithValue("@Qty", quantity);
             cmd.Parameters.AddWithValue("@Amount", amount);
+            cmd.Parameters.AddWithValue("@SaveBy", userID);
             cmd.ExecuteNonQuery();
 
             //SqlDataAdapter ad = new SqlDataAdapter(cmd);
@@ -1159,4 +1196,103 @@ public partial class Bill_Entry_New_BillEntryNew : System.Web.UI.Page
         }
     }
 
+    private void InsertTaxation(string bills1RefNo, SqlConnection con, SqlTransaction transaction)
+    {
+        DataTable dt = (DataTable)Session["AccountHeadDT"];
+
+        if (dt != null)
+        {
+            foreach (GridViewRow row in GridTax.Rows)
+            {
+                int rowIndex = row.RowIndex;
+
+                // additional details
+                string AccountHeadCode = dt.Rows[rowIndex]["AcHCode"].ToString();
+
+
+                // Tax Head Grid Details
+                TextBox AcHNameStr = row.FindControl("AcHeadName") as TextBox;
+                string AccountHeadName = (AcHNameStr.Text).ToString();
+
+                TextBox TaxRateTXT = row.FindControl("FactorInPer") as TextBox;
+                double taxRate = Convert.ToDouble(TaxRateTXT.Text);
+
+                DropDownList perOrAmntDropDown = row.FindControl("PerOrAmnt") as DropDownList;
+                string perOrAmnt = perOrAmntDropDown.SelectedValue;
+
+                DropDownList AddLessDropown = row.FindControl("AddLess") as DropDownList;
+                string addLess = AddLessDropown.SelectedValue;
+
+                TextBox TaxAccountHeadAmount = row.FindControl("TaxAmount") as TextBox;
+                double taxAmount = Convert.ToDouble(TaxAccountHeadAmount.Text);
+
+
+
+                string userID = Session["UserId"].ToString();
+
+                // new reference no
+                string billRefNo_New = GetNewTaxRefNo(con, transaction);
+
+                string sql = $@"INSERT INTO BillTaxHead722 
+                                (RefNO, Bills1RefNo, AcHeadName, AcHCode, FactorInPer, PerOrAmnt, AddLess, TaxAmount, SaveBy) 
+                                VALUES 
+                                (@RefNO, @Bills1RefNo, @AcHeadName, @AcHCode, @FactorInPer, @PerOrAmnt, @AddLess, @TaxAmount, @SaveBy)";
+
+                SqlCommand cmd = new SqlCommand(sql, con, transaction);
+                cmd.Parameters.AddWithValue("@RefNO", billRefNo_New);
+                cmd.Parameters.AddWithValue("@Bills1RefNo", bills1RefNo);
+                cmd.Parameters.AddWithValue("@AcHeadName", AccountHeadName);
+                cmd.Parameters.AddWithValue("@AcHCode", AccountHeadCode);
+                cmd.Parameters.AddWithValue("@FactorInPer", taxRate);
+                cmd.Parameters.AddWithValue("@PerOrAmnt", perOrAmnt);
+                cmd.Parameters.AddWithValue("@AddLess", addLess);
+                cmd.Parameters.AddWithValue("@TaxAmount", taxAmount);
+                cmd.Parameters.AddWithValue("@SaveBy", userID);
+                cmd.ExecuteNonQuery();
+
+                //SqlDataAdapter ad = new SqlDataAdapter(cmd);
+                //DataTable dt = new DataTable();
+                //ad.Fill(dt);
+            }
+        }
+    }
+
+    private void InsertBillDocuments(string bills1RefNo, SqlConnection con, SqlTransaction transaction)
+    {
+        DataTable documentsDT = (DataTable)Session["DocUploadDT"];
+
+        foreach (GridViewRow row in GridDocument.Rows)
+        {
+            int rowIndex = row.RowIndex;
+
+            string docName = documentsDT.Rows[rowIndex]["DocName"].ToString();
+
+            HyperLink hypDocPath = (HyperLink)row.FindControl("DocPath");
+            string docPath = hypDocPath.NavigateUrl;
+
+
+            string userID = Session["UserId"].ToString();
+
+
+            // new document reference no
+            string docRefNo_New = GetNewDocReferenceNo(con, transaction);
+
+            string sql = $@"INSERT INTO BillDocUpload722 
+                            (RefNo, BillRefNo, DocName, DocPath, SaveBy) 
+                            values 
+                            (@RefNo, @BillRefNo, @DocName, @DocPath, @SaveBy)";
+
+            SqlCommand cmd = new SqlCommand(sql, con, transaction);
+            cmd.Parameters.AddWithValue("@RefNo", docRefNo_New);
+            cmd.Parameters.AddWithValue("@BillRefNo", bills1RefNo);
+            cmd.Parameters.AddWithValue("@DocName", docName);
+            cmd.Parameters.AddWithValue("@DocPath", docPath);
+            cmd.Parameters.AddWithValue("@SaveBy", userID);
+            cmd.ExecuteNonQuery();
+
+            //SqlDataAdapter ad = new SqlDataAdapter(cmd);
+            //DataTable dt = new DataTable();
+            //ad.Fill(dt);
+        }
+    }
 }
